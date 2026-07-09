@@ -53,9 +53,18 @@ jobs:
 
   # GATE 3 - SCA (analyses third-party dependencies in pom.xml)
   sca:
-    - name: Install Trivy
+    name: Gate 3 - SCA (Trivy)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Trivy
         run: |
-          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+          curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh \
+            | sh -s -- -b /usr/local/bin
+          trivy --version
 
       - name: Run Trivy filesystem scan
+        # Fails the gate when a HIGH/CRITICAL CVE is found (e.g. Log4Shell in log4j 2.14.1)
         run: trivy fs --scanners vuln --severity HIGH,CRITICAL --exit-code 1 .
