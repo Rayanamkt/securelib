@@ -1,0 +1,44 @@
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 12 files tracked by git with 2 Code rules:
+  Scanning 4 files with 2 java rules.
+                   
+                   
+┌─────────────────┐
+│ 3 Code Findings │
+└─────────────────┘
+                                                        
+    src/main/java/com/securelib/config/BackupConfig.java
+   ❯❯❱ semgrep.hardcoded-aws-credentials
+          ❰❰ Blocking ❱❱
+          Hardcoded credential detected. Secrets must not be committed to source control; read them from
+          environment variables or a secret manager.                                                    
+                                                                                                        
+           14┆ public static final String AWS_ACCESS_KEY_ID = "AKIA3SG5HZ4PLM9QWERT";
+            ⋮┆----------------------------------------
+           15┆ public static final String AWS_SECRET_ACCESS_KEY =
+               "aB9x2LmNp0QrS3tUvWx4yZ5aBcDeFgHiJkLmNoPq";       
+                                                        
+    src/main/java/com/securelib/service/BookService.java
+   ❯❯❱ semgrep.jdbctemplate-sql-injection
+          ❰❰ Blocking ❱❱
+          SQL injection: untrusted input is concatenated into a SQL string that is passed to JdbcTemplate. Use
+          a parameterized query with '?' placeholders instead (jdbcTemplate.queryForList(sql, args)).         
+                                                                                                              
+           30┆ return jdbcTemplate.queryForList(sql);
+
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 3 (3 blocking)
+ • Rules run: 2
+ • Targets scanned: 4
+ • Parsed lines: ~100.0%
+ • No ignore information available
+Ran 2 rules on 4 files: 3 findings.

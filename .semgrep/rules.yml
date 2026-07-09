@@ -1,0 +1,35 @@
+rules:
+  - id: jdbctemplate-sql-injection
+    languages: [java]
+    severity: ERROR
+    message: >
+      SQL injection: untrusted input is concatenated into a SQL string that is
+      passed to JdbcTemplate. Use a parameterized query with '?' placeholders
+      instead (jdbcTemplate.queryForList(sql, args)).
+    metadata:
+      cwe: "CWE-89: Improper Neutralization of Special Elements used in an SQL Command"
+      owasp: "A03:2021 - Injection"
+      category: security
+    patterns:
+      - pattern-inside: |
+          String $SQL = "..." + ...;
+          ...
+      - pattern: $JDBC.queryForList($SQL)
+
+  - id: hardcoded-aws-credentials
+    languages: [java]
+    severity: ERROR
+    message: >
+      Hardcoded credential detected. Secrets must not be committed to source
+      control; read them from environment variables or a secret manager.
+    metadata:
+      cwe: "CWE-798: Use of Hard-coded Credentials"
+      owasp: "A07:2021 - Identification and Authentication Failures"
+      category: security
+    pattern-either:
+      - pattern: String $K = "AKIA...";
+      - patterns:
+          - pattern: String $K = "...";
+          - metavariable-regex:
+              metavariable: $K
+              regex: (?i).*(secret|password|access_key|api_key|token).*

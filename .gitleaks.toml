@@ -1,0 +1,10 @@
+# gitleaks configuration for the SecureLib project.
+# Extends the default ruleset and ignores generated scan-evidence artifacts.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Ignore generated evidence artifacts (they contain redacted demo secrets)"
+paths = [
+  '''docs/evidence/.*''',
+]

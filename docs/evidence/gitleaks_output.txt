@@ -1,0 +1,25 @@
+
+    ○
+    │╲
+    │ ○
+    ○ ░
+    ░    gitleaks
+
+Finding:     ...WS_ACCESS_KEY_ID = "REDACTED"
+Secret:      REDACTED
+RuleID:      aws-access-token
+Entropy:     4.221928
+File:        src/main/java/com/securelib/config/BackupConfig.java
+Line:        14
+Fingerprint: src/main/java/com/securelib/config/BackupConfig.java:aws-access-token:14
+
+Finding:     ...static final String AWS_SECRET_ACCESS_KEY = "REDACTED"
+Secret:      REDACTED
+RuleID:      generic-api-key
+Entropy:     5.021928
+File:        src/main/java/com/securelib/config/BackupConfig.java
+Line:        15
+Fingerprint: src/main/java/com/securelib/config/BackupConfig.java:generic-api-key:15
+
+10:32AM INF scan completed in 9.77ms
+10:32AM WRN leaks found: 2
